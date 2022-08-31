@@ -40,6 +40,7 @@ h3 {
   margin: 0 auto;
   border-radius: 1rem; 
   padding: 1rem; 
+  font-size: 1.5rem; 
   background-color: fade(@c0, 10%); 
   color: @c0;
   transition: background-color 0.5s ease;
