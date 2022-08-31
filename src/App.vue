@@ -1,20 +1,6 @@
-<script setup lang="ts">
-import { useResStore } from "./stores/res"
-import WelcomePage from "./components/WelcomePage.vue";
-import { ref } from "vue"
-
-let urlParams = new URLSearchParams(window.location.search);
-let page = 'home'
-let resourceId = (urlParams.get('resourceId')!)
-if(resourceId) {
-  useResStore().loadResource(resourceId)
-  page = 'resource'
-}
-</script>
-
 <template>
   <background-layer/>
-  <WelcomePage v-if="page == 'home'"/>
+  <router-view/>
 </template>
 
 <style scoped lang="less">
