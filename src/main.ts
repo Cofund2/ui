@@ -6,7 +6,7 @@ import { loadFonts } from './plugins/webfontloader'
 
 import router from './router'
 
-import "./assets/main.less"
+import "./main.less"
 
 loadFonts()
 

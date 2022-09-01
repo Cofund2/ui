@@ -74,7 +74,6 @@ function cofund() {
   heading {
     display: block;
     text-align: center;
-    color: @c0; 
     img {
       margin: 2rem; 
       width: 12rem; 
@@ -85,8 +84,5 @@ function cofund() {
   actions {
     text-align: center;
     display: block;
-    .new-funding {
-      color: @c0; 
-    }
   }
 </style>

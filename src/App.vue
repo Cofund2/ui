@@ -1,5 +1,5 @@
 <template>
-  <background-layer/>
+  <div class="background-layer"/>
   <router-view/>
 </template>
 
@@ -7,8 +7,8 @@
 @import '@/colors.less';
 
 background-layer {
-	background: linear-gradient(#3279b2, #e92181); 
-	background-size: 400% 400%;
+	background: linear-gradient(#3279b2, #e92181, #3279b2); 
+	background-size: 200% 200%;
 	animation: gradient 35s ease infinite;
 	opacity: 0.5;
 	width: 100vh; 
