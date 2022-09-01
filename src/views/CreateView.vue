@@ -18,6 +18,7 @@
   
 
   let rentIntervals = ['yearly', 'monthly', 'weekly']
+  let durations = ['minutes', 'hours', 'days', 'weeks']
   let recRent = ref({
     rentInterval: rentIntervals[1], 
     rentAmount: 210,
@@ -29,7 +30,10 @@
     
     profit: 0, 
 
-    usageFactors: [] as UsageFactor[]
+    usageFactors: [] as UsageFactor[], 
+
+    minN: 1, 
+    minNUnit: durations[1], 
   })
   
 </script>
@@ -127,6 +131,31 @@
           </v-col>
         </v-row>
       </v-container>
+
+      <h3>Reservation duration</h3>
+      <p>
+        Specify the minimal reservation duration. 
+        <v-container fluid class='pa-0'>
+          <v-row no-gutters>
+            <v-col 
+            cols="6">
+              <v-text-field
+              label="n"
+              variant="outlined"
+              v-model="recRent.minN"></v-text-field>
+            </v-col>
+            <v-col 
+            cols="6">
+              <v-select 
+              label="duration unit"
+              variant="outlined"
+              v-model="recRent.minNUnit"
+              :items="durations"></v-select>
+            </v-col>
+          </v-row>
+        </v-container>  
+
+      </p>
     
       <h3>Usage factors</h3>
       <p>
@@ -168,6 +197,10 @@
 
 <style lang="less" scoped>
   @import "@/colors";
+  h3 {
+    font-weight: bold;
+  }
+
   h3, p {
     margin: 1rem ; 
   }

@@ -8,6 +8,8 @@ import router from './router'
 
 import "./main.less"
 
+import "./vuetify.sass"
+
 loadFonts()
 
 createApp(App)
