@@ -17,7 +17,7 @@
   let calcType = ref("recRent")
   
 
-  let rentIntervals = ['yearly', 'monthly', 'weekly']
+  let rentIntervals = ['weekly', 'monthly', 'yearly']
   let durations = ['minutes', 'hours', 'days', 'weeks']
   let recRent = ref({
     rentInterval: rentIntervals[1], 
@@ -32,8 +32,14 @@
 
     usageFactors: [] as UsageFactor[], 
 
-    minN: 1, 
-    minNUnit: durations[1], 
+    minN: {
+      n: 1, 
+      unit: durations[1], 
+    }, 
+    expectedDemand: {
+      n: 1000, 
+      unit: durations[1], 
+    }
   })
   
 </script>
@@ -56,11 +62,12 @@
     :items="calcTypeList"></v-select>
     <template v-if="calcType == 'recRent'" class="calcDetails">
       <h3>How do you pay the rent for this resource?</h3>
-      <v-text-field
+      <v-select
       label="rent interval"
       variant="outlined"
       v-model="recRent.rentInterval"
-      ></v-text-field>
+      :items="rentIntervals"
+      ></v-select>
       <v-text-field
       label="rent amount"
       variant="outlined"
@@ -79,6 +86,91 @@
       suffix="%"
       v-model="recRent.profit"
       ></v-text-field>
+      <h3>reservation duration</h3>
+      <p>
+        Specify the minimal reservation duration. 
+      </p>
+      <v-container fluid class='pa-0'>
+        <v-row no-gutters>
+          <v-col 
+          cols="6">
+            <v-text-field
+            label="n"
+            variant="outlined"
+            v-model="recRent.minN.n"></v-text-field>
+          </v-col>
+          <v-col 
+          cols="6">
+            <v-select 
+            label="duration unit"
+            variant="outlined"
+            v-model="recRent.minN.unit"
+            :items="durations"></v-select>
+          </v-col>
+        </v-row>
+      </v-container>  
+      <h3>Usage factors</h3>
+      <p>
+        When somebody makes a booking, he will have to state a number for every usage factor. 
+        E.g. the number of people. Each additional person will increase the price by f times the price for one person. 
+      </p>
+      <v-container fluid class='pa-0'>
+        <v-row no-gutters
+        v-for="(uf, i) in recRent.usageFactors" 
+        :key="i">
+          <v-col 
+          cols="6">
+            <v-text-field
+            label="name"
+            variant="outlined"
+            v-model="uf.name"></v-text-field>
+          </v-col>
+          <v-col 
+          cols="6">
+            <v-text-field
+            label="factor f"
+            variant="outlined"
+            v-model="uf.f"></v-text-field>
+          </v-col>
+        </v-row>
+      </v-container>  
+      <v-btn
+          class="button"
+          variant="outlined"
+          @click="recRent.usageFactors.push(new UsageFactor())"
+        >
+        add usage factor
+      </v-btn>
+      <h3> interval & expected demand</h3>
+      <p>
+        Specify the expected demand over the course of one interval (respecting usage factors)
+      </p>
+      <h1> tbd interval </h1>
+      <v-container fluid class='pa-0'>
+        <v-row no-gutters>
+          <v-col 
+          cols="6">
+            <v-text-field
+            label="n"
+            variant="outlined"
+            v-model="recRent.expectedDemand.n"></v-text-field>
+          </v-col>
+          <v-col 
+          cols="6">
+            <v-select 
+            label="duration unit"
+            variant="outlined"
+            v-model="recRent.expectedDemand.unit"
+            :items="durations"></v-select>
+          </v-col>
+        </v-row>
+      </v-container>  
+      <p>
+        Cofund will calculate prices based on demand over an interval period. 
+        E.g. if you expect different demand in winter and summer, prices in summer will be higher and prices in winter lower.
+        If you expect more bookings on the weekend, prices on workdays will be lower. 
+        This will ensure a more efficient usage of the ressource. 
+      </p>
       <h3>Yearly fluctuation</h3>
       <v-container fluid class='pa-0'>
         <v-row no-gutters>
@@ -131,65 +223,15 @@
           </v-col>
         </v-row>
       </v-container>
-
-      <h3>Reservation duration</h3>
-      <p>
-        Specify the minimal reservation duration. 
-        <v-container fluid class='pa-0'>
-          <v-row no-gutters>
-            <v-col 
-            cols="6">
-              <v-text-field
-              label="n"
-              variant="outlined"
-              v-model="recRent.minN"></v-text-field>
-            </v-col>
-            <v-col 
-            cols="6">
-              <v-select 
-              label="duration unit"
-              variant="outlined"
-              v-model="recRent.minNUnit"
-              :items="durations"></v-select>
-            </v-col>
-          </v-row>
-        </v-container>  
-
-      </p>
-    
-      <h3>Usage factors</h3>
-      <p>
-        When somebody makes a booking, he will have to state a number for every usage factor. 
-        E.g. number of people. Each additional person will increase the price by f times the price for one person. 
-      </p>
-      <v-container fluid class='pa-0'>
-        <v-row no-gutters
-        v-for="(uf, i) in recRent.usageFactors" 
-        :key="i">
-          <v-col 
-          cols="6">
-            <v-text-field
-            label="name"
-            variant="outlined"
-            v-model="uf.name"></v-text-field>
-          </v-col>
-          <v-col 
-          cols="6">
-            <v-text-field
-            label="factor f"
-            variant="outlined"
-            v-model="uf.f"></v-text-field>
-          </v-col>
-        </v-row>
-      </v-container>  
-      <v-btn
-          class="button"
-          variant="outlined"
-          @click="recRent.usageFactors.push(new UsageFactor())"
-        >
-        add usage factor
-      </v-btn>
     </template>
+    
+    <div class='actions'>
+      <v-btn
+        id="createButton"
+        variant="outlined">
+        create
+      </v-btn>
+    </div>
 
   </v-form>
 </template>
@@ -197,6 +239,10 @@
 
 <style lang="less" scoped>
   @import "@/colors";
+  h1 {
+    text-align: center;
+    margin: 2rem; 
+  }
   h3 {
     font-weight: bold;
   }
@@ -213,5 +259,14 @@
     margin: 2rem 0rem; 
   }
 
+  .actions {
+    text-align: center;
+    border-top: 0.1rem solid #fff8; 
+    padding: 2rem;
+    margin: 1rem; 
+    v-btn {
+      display: inline-block;
+    }
+  }
   
 </style>
