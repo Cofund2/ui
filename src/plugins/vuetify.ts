@@ -8,8 +8,8 @@ import type { ThemeDefinition } from 'vuetify'
 const theme: ThemeDefinition = {
   dark: true,
   colors: {
-    background: '#444444',
-    surface: '#444444',
+    background: '#222',
+    surface: '#333',
     primary: '#49bbcb',
     'primary-darken-1': '#3700B3',
     secondary: '#bb1353',

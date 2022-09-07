@@ -1,12 +1,38 @@
+<script setup lang=ts>
+  import router from "@/router/index"
+
+  function goHome() {
+    router.push("/") 
+  }
+
+</script>
+
 <template>
   <div id="bglayer1"/>
   <div id="bglayer2"/>
-  <div class="background-layer"/>
+  <div class=heading>
+    <img
+      class="logo"
+      @click="goHome"
+      src="@/assets/logo.svg"
+    />
+  </div>
   <router-view/>
 </template>
 
 <style scoped lang="less">
 @import '@/colors.less';
+
+.heading{
+  display: block;
+  text-align: center;
+  img {
+    margin: 1rem; 
+    width: 12rem; 
+    height: 12rem; 
+    cursor: pointer; 
+  }
+}
 
 #bglayer1 {
   background: linear-gradient(#3279b2, shade(#e92181, 20%), #3279b2); 

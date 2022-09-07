@@ -14,17 +14,8 @@ function cofund() {
 </script>
 
 <template>
-  <heading>
-    <img
-      class="logo"
-      src="@/assets/logo.svg"
-    />
-    <div class="title">
-      <h1>Cofund</h1>
-    </div>
-  </heading>
-
-  <items>
+  <h1>Cofund</h1>
+  <div class=items>
     <WelcomeItem>
       <template #icon>
         <EcosystemIcon/>
@@ -55,9 +46,9 @@ function cofund() {
           <li>sharing maintainance costs of a mountain lodge</li>
         </ul>
     </WelcomeItem>
-  </items>
+  </div>
 
-  <actions>
+  <div class=actions>
     <v-btn
         class="new-funding"
         variant="outlined"
@@ -65,23 +56,17 @@ function cofund() {
       >
       cofund a resource!
     </v-btn>
-  </actions>
+  </div>
 </template>
 
 <style lang="less" scoped>
   @import "@/colors";
 
-  heading {
-    display: block;
-    text-align: center;
-    img {
-      margin: 2rem; 
-      width: 12rem; 
-      height: 12rem; 
-    }
+  h1 {
+    text-align: center; 
   }
-  
-  actions {
+
+  .actions {
     text-align: center;
     display: block;
   }
