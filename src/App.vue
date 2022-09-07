@@ -10,7 +10,9 @@
 <template>
   <div id="bglayer1"/>
   <div id="bglayer2"/>
-  <div class=heading>
+  <div 
+    :class="{ressource: $route.name == 'ressource'}"
+    class=heading>
     <img
       class="logo"
       @click="goHome"
@@ -30,9 +32,26 @@
     margin: 1rem; 
     width: 12rem; 
     height: 12rem; 
+
+
     cursor: pointer; 
   }
+  &.ressource{
+    position: absolute; 
+    z-index: 100;
+    left: 0; 
+    top: 0; 
+    width: 5rem; 
+    height: 5rem; 
+    img {
+      margin: 0.5rem; 
+      width: 4rem; 
+      height: 4rem; 
+    }
+  }
 }
+
+
 
 #bglayer1 {
   background: linear-gradient(#3279b2, shade(#e92181, 20%), #3279b2); 

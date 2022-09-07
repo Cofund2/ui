@@ -280,6 +280,7 @@
     </template>
     
     <div class='actions'>
+      <p>Click on create to deploy a smart contract for funding this ressource.</p>
       <v-btn
         id="createButton"
         variant="outlined">
@@ -293,10 +294,6 @@
 
 <style lang="less" scoped>
   @import "@/colors";
-  h1 {
-    text-align: center;
-    margin: 2rem; 
-  }
   h3 {
     font-weight: bold;
   }
@@ -321,9 +318,12 @@
     v-btn {
       display: inline-block;
     }
+    p {
+      margin: 0rem 1rem 1rem 1rem;
+    }
   }
   
-  ::v-deep .v-expansion-panel-text__wrapper {
+  :deep(.v-expansion-panel-text__wrapper) {
     margin: 1rem 0 0 0; 
     padding: 0; 
   }
